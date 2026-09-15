@@ -1,0 +1,31 @@
+.interview-page { display:flex; flex-direction:column; gap:20px; max-width:760px; }
+.interview-types-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+.type-card { display:flex; flex-direction:column; align-items:center; text-align:center; gap:10px; cursor:pointer; transition:all 0.15s; }
+.type-card:hover { transform:translateY(-3px); box-shadow:var(--shadow-lg); border-color:var(--primary); }
+.type-emoji { font-size:40px; }
+.type-card h3 { font-size:15px; font-weight:700; }
+.type-card p  { font-size:12px; color:var(--text-muted); line-height:1.5; }
+.interview-progress { background:var(--card); border-radius:12px; padding:14px 16px; border:1px solid var(--border); }
+.interview-progress-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+.question-card-interview { padding:24px; }
+.q-meta { margin-bottom:12px; }
+.interview-question { font-size:20px; font-weight:700; line-height:1.5; margin-bottom:12px; }
+.hint-box { background:#FFF7ED; border-radius:8px; padding:12px 14px; font-size:13px; color:#92400E; margin-top:12px; }
+.eval-card { border-left:4px solid var(--primary); }
+.eval-score-row { display:flex; align-items:center; gap:16px; margin-bottom:12px; }
+.eval-score { font-size:28px; font-weight:800; }
+.eval-section { margin-bottom:8px; }
+.eval-section strong { font-size:13px; }
+.eval-point { font-size:13px; padding:4px 0; line-height:1.5; }
+.eval-point.green  { color:#166534; }
+.eval-point.orange { color:#92400E; }
+.model-hint { background:#EFF6FF; border-radius:8px; padding:10px 14px; font-size:13px; color:var(--primary); margin-top:8px; }
+.result-hero-card { text-align:center; padding:32px; }
+.result-top { display:flex; flex-direction:column; align-items:center; gap:8px; margin-bottom:24px; }
+.result-emoji { font-size:56px; }
+.result-hero-card h1 { font-size:24px; font-weight:800; }
+.result-score-big { font-size:56px; font-weight:800; color:var(--primary); }
+.result-score-big span { font-size:24px; color:var(--text-muted); }
+.score-breakdown { display:flex; flex-direction:column; gap:8px; margin-top:16px; }
+.score-q-row { display:grid; grid-template-columns:30px 1fr 40px; align-items:center; gap:12px; font-size:13px; }
+@media(max-width:640px) { .interview-types-grid { grid-template-columns:repeat(2,1fr); } }

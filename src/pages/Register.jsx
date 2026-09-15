@@ -51,7 +51,9 @@ export default function Register() {
       toast.success('Account created! Welcome to CareerMitra AI 🎉')
       navigate('/')
     } catch (err) {
-      setError(err.response?.data?.message || 'Registration failed')
+      const msg = err.response?.data?.message || err.response?.data?.errors?.[0]?.message || 'Registration failed. Please try again.'
+      setError(msg)
+      console.error('Registration error:', err.response?.data)
     } finally {
       setLoading(false)
     }
@@ -110,10 +112,11 @@ export default function Register() {
               </div>
               <button type="button" className="btn btn-primary btn-block"
                 onClick={() => {
-                  if (!form.name || !form.email || form.password.length < 8) {
-                    setError('Please fill name, email and password (min 8 chars)')
-                    return
-                  }
+                  if (!form.name.trim()) { setError('Name is required'); return }
+                  if (!form.email.trim()) { setError('Email is required'); return }
+                  if (form.password.length < 8) { setError('Password must be at least 8 characters'); return }
+                  if (!/[A-Z]/.test(form.password)) { setError('Password must contain at least one uppercase letter (e.g. Test@1234)'); return }
+                  if (!/[0-9]/.test(form.password)) { setError('Password must contain at least one number'); return }
                   setError('')
                   setStep(2)
                 }}>

@@ -59,8 +59,12 @@ export default function Dashboard() {
     { emoji: '📚', label: 'Exam Prep',    path: '/exams',                 color: '#B45309' },
     { emoji: '🤖', label: 'AI Mentor',    path: '/ai',                    color: '#1565C0' },
     { emoji: '🗺️', label: 'Roadmap',      path: '/roadmap',               color: '#7C3AED' },
-    { emoji: '📊', label: 'My Progress',  path: '/profile',               color: '#0F766E' },
-    { emoji: '📋', label: 'Tracker',      path: '/applications',          color: '#DC2626' },
+    { emoji: '📄', label: 'Resume AI',    path: '/resume',                color: '#0F766E' },
+    { emoji: '🎤', label: 'Interview',    path: '/interview',             color: '#9F1239' },
+    { emoji: '⚡', label: 'Daily Quiz',   path: '/quiz',                  color: '#D97706' },
+    { emoji: '🛡️', label: 'Scam Check',  path: '/scam-check',            color: '#7C3AED' },
+    { emoji: '⚖️', label: 'Compare',      path: '/compare',               color: '#0369A1' },
+    { emoji: '💰', label: 'Salary Calc',  path: '/salary',                color: '#059669' },
   ]
 
   return (

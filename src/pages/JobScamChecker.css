@@ -1,0 +1,5 @@
+.scam-result-header { display:flex; align-items:center; gap:12px; }
+.scam-result-header h2 { font-size:18px; font-weight:800; }
+.scam-tips { margin-top:16px; padding:14px; background:rgba(0,0,0,0.04); border-radius:10px; }
+.scam-tips h3 { font-size:13px; font-weight:700; margin-bottom:8px; }
+.scam-tips p  { font-size:13px; color:var(--text-muted); margin-bottom:4px; }

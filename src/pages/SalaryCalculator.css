@@ -1,0 +1,13 @@
+.salary-controls { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.salary-result-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.salary-main-card { display:flex; flex-direction:column; align-items:center; text-align:center; padding:28px; background:linear-gradient(135deg,#1565C0,#003C8F); color:white; }
+.salary-role-label { font-size:12px; opacity:0.8; margin-bottom:8px; }
+.salary-big { font-size:42px; font-weight:800; }
+.salary-sublabel { font-size:13px; opacity:0.8; margin-top:4px; }
+.salary-monthly { display:flex; gap:32px; margin-top:20px; }
+.salary-monthly div { text-align:center; }
+.salary-monthly span { font-size:18px; font-weight:700; }
+.salary-monthly p { font-size:11px; opacity:0.8; margin-top:2px; }
+.breakdown-row { display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid var(--border); font-size:13px; }
+.breakdown-row:last-child { border-bottom:none; }
+@media(max-width:640px) { .salary-controls,.salary-result-grid { grid-template-columns:1fr; } }

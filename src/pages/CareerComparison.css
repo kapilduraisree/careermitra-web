@@ -1,0 +1,10 @@
+.comparison-page { display:flex; flex-direction:column; gap:20px; }
+.comparison-results { display:flex; flex-direction:column; gap:16px; }
+.comp-table-wrap { overflow-x:auto; border-radius:12px; box-shadow:var(--shadow); }
+.comp-table { width:100%; border-collapse:collapse; background:white; }
+.comp-table th { background:var(--primary); color:white; padding:12px 16px; text-align:left; font-size:13px; }
+.comp-table th:first-child { background:#003C8F; }
+.comp-table td { padding:12px 16px; border-bottom:1px solid var(--border); font-size:13px; vertical-align:top; }
+.comp-table td:first-child { font-weight:600; background:var(--bg); width:130px; }
+.comp-table tr:last-child td { border-bottom:none; }
+.comp-table tr:hover td:not(:first-child) { background:#FAFAFA; }

@@ -1,0 +1,29 @@
+.resume-page { display: flex; flex-direction: column; gap: 20px; max-width: 860px; }
+.upload-zone {
+  border: 2px dashed var(--border); border-radius: 16px; cursor: pointer;
+  transition: all 0.2s; background: var(--card); padding: 40px;
+  text-align: center;
+}
+.upload-zone:hover, .upload-zone.drag-over {
+  border-color: var(--primary); background: #EFF6FF;
+}
+.upload-zone.has-file { border-style: solid; border-color: var(--green); cursor: default; }
+.upload-prompt { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.upload-prompt h3 { font-size: 18px; font-weight: 700; }
+.upload-prompt p  { color: var(--text-muted); font-size: 14px; }
+.file-selected { display: flex; align-items: center; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.file-name { font-weight: 700; font-size: 15px; }
+.file-size { color: var(--text-muted); font-size: 12px; }
+.score-card { padding: 28px; }
+.score-circle-wrap { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+.score-info h2 { font-size: 20px; font-weight: 800; margin-bottom: 8px; }
+.score-info p  { color: var(--text-muted); font-size: 14px; margin-top: 8px; line-height: 1.6; }
+.score-label { display: inline-block; padding: 4px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+.results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.res-section-title { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; margin-bottom: 12px; }
+.res-item { padding: 8px 12px; border-radius: 8px; font-size: 13px; margin-bottom: 6px; line-height: 1.5; }
+.res-item.green  { background: #F0FDF4; color: #166534; }
+.res-item.orange { background: #FFF7ED; color: #92400E; }
+.res-item.red    { background: #FFF5F5; color: #9B1C1C; }
+.resume-results { display: flex; flex-direction: column; gap: 16px; }
+@media (max-width: 640px) { .results-grid { grid-template-columns: 1fr; } }
