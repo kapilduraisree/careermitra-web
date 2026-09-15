@@ -1,0 +1,24 @@
+.roadmap-page { display: flex; flex-direction: column; gap: 0; }
+.roadmap-layout { display: grid; grid-template-columns: 260px 1fr; gap: 20px; align-items: start; }
+.roadmap-list { background: white; border-radius: 14px; border: 1px solid var(--border); overflow: hidden; position: sticky; top: 80px; }
+.roadmap-list-item { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; cursor: pointer; border-bottom: 1px solid var(--border); transition: background 0.12s; }
+.roadmap-list-item:last-child { border-bottom: none; }
+.roadmap-list-item:hover { background: var(--bg); }
+.roadmap-list-item.active { background: #EFF6FF; }
+.roadmap-detail { min-width: 0; }
+.rd-steps { display: flex; flex-direction: column; }
+.rd-step { display: flex; gap: 14px; position: relative; padding-bottom: 0; }
+.rd-step-num { width: 36px; height: 36px; border-radius: 50%; background: var(--bg); border: 2.5px solid var(--border); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; flex-shrink: 0; z-index: 1; margin-top: 16px; }
+.rd-step.completed .rd-step-num { background: var(--green); border-color: var(--green); color: white; }
+.rd-step.in_progress .rd-step-num { background: var(--secondary); border-color: var(--secondary); color: white; }
+.rd-step-line { position: absolute; left: 17px; top: 52px; bottom: 0; width: 2px; background: var(--border); z-index: 0; }
+.rd-step.completed .rd-step-line { background: var(--green); }
+.rd-step-body { flex: 1; padding: 12px; margin-bottom: 8px; background: white; border-radius: 12px; border: 1px solid var(--border); }
+.rd-step.completed .rd-step-body { background: #F0FDF4; border-color: #BBF7D0; }
+.rd-step-header { display: flex; justify-content: space-between; align-items: flex-start; cursor: pointer; }
+.rd-step-header h4 { font-size: 14px; font-weight: 700; }
+.rd-step-content { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
+.rd-step-content p { font-size: 13px; color: var(--text-muted); line-height: 1.7; margin-bottom: 8px; }
+.rd-project { font-size: 12px; background: #FFF7ED; color: #92400E; padding: 6px 10px; border-radius: 6px; margin-bottom: 8px; }
+.rd-resources { font-size: 12px; color: var(--text-muted); }
+@media (max-width: 768px) { .roadmap-layout { grid-template-columns: 1fr; } .roadmap-list { position: static; } }

@@ -1,0 +1,22 @@
+.exams-layout { display: grid; grid-template-columns: 280px 1fr; gap: 20px; align-items: start; }
+.exam-list { background: white; border-radius: 14px; padding: 16px; border: 1px solid var(--border); position: sticky; top: 80px; }
+.exam-list-item { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 10px; cursor: pointer; transition: background 0.12s; margin-bottom: 4px; }
+.exam-list-item:hover { background: var(--bg); }
+.exam-list-item.active { background: #EFF6FF; }
+.exam-badge { width: 44px; height: 44px; border-radius: 10px; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; flex-shrink: 0; }
+.exam-info { flex: 1; min-width: 0; }
+.exam-name { font-size: 13px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.exam-body { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+.exam-arrow { color: var(--text-muted); flex-shrink: 0; }
+.exam-detail { min-width: 0; }
+.exam-header { margin-bottom: 20px; }
+.exam-header h2 { font-size: 22px; font-weight: 800; }
+.exam-header p { color: var(--text-muted); margin-top: 4px; }
+.exam-overview { display: flex; flex-direction: column; gap: 16px; }
+.subject-row { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+.subject-row:last-child { border-bottom: none; }
+.subject-num { width: 28px; height: 28px; border-radius: 50%; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
+.subject-name { flex: 1; font-size: 14px; font-weight: 500; }
+.subject-weight { font-size: 14px; font-weight: 700; color: var(--primary); }
+.mat-icon { width: 44px; height: 44px; border-radius: 10px; background: #EFF6FF; color: var(--primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+@media (max-width: 768px) { .exams-layout { grid-template-columns: 1fr; } .exam-list { position: static; } }
