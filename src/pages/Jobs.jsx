@@ -24,23 +24,34 @@ export default function Jobs() {
   const [category, setCategory] = useState('All')
   const [page, setPage] = useState(1)
   const [total, setTotal] = useState(0)
+  const [liveSource, setLiveSource] = useState(false)
 
   const loadJobs = async (t = type, s = search, cat = category, p = 1) => {
+    if (t === 'live') { loadLiveJobs(s || 'software developer', 'india'); return }
     setLoading(true)
+    setLiveSource(false)
     try {
       const endpoint = t === 'government' ? '/jobs/government'
                      : t === 'private'    ? '/jobs/private'
                      : '/jobs/internships'
       const { data } = await api.get(endpoint, {
-        params: {
-          page: p, limit: 12,
-          search: s || undefined,
-          category: cat !== 'All' ? cat : undefined,
-        }
+        params: { page: p, limit: 12, search: s || undefined, category: cat !== 'All' ? cat : undefined }
       })
       setJobs(data.data || [])
       setTotal(data.pagination?.total || 0)
       setPage(p)
+    } finally { setLoading(false) }
+  }
+
+  const loadLiveJobs = async (q = 'software developer', loc = 'india') => {
+    setLoading(true)
+    setLiveSource(true)
+    try {
+      const { data } = await api.get('/jobs/live', { params: { search: q, location: loc } })
+      setJobs(data.data || [])
+      setTotal(data.data?.length || 0)
+    } catch {
+      setJobs([])
     } finally { setLoading(false) }
   }
 
@@ -60,9 +71,11 @@ export default function Jobs() {
 
       {/* Type tabs */}
       <div className="tabs">
-        {[['government','🏛️ Govt Jobs'],['private','💼 Private'],['internship','🎓 Internships']].map(([val,lbl]) => (
+        {[['government','🏛️ Govt Jobs'],['private','💼 Private'],['internship','🎓 Internships'],['live','⚡ Live Jobs']].map(([val,lbl]) => (
           <button key={val} className={`tab ${type===val?'active':''}`}
-            onClick={() => { setType(val); setCategory('All') }}>{lbl}</button>
+            onClick={() => { setType(val); setCategory('All'); if(val==='live') loadLiveJobs('software developer','india') }}>
+            {lbl}
+          </button>
         ))}
       </div>
 
@@ -89,6 +102,11 @@ export default function Jobs() {
         <EmptyState icon="🔍" title="No jobs found" subtitle="Try different filters or search terms" />
       ) : (
         <>
+          {liveSource && (
+            <div className="alert alert-success" style={{ marginBottom:12 }}>
+              ⚡ <strong>Live Data</strong> — Showing real-time jobs from Adzuna. {total}+ jobs available.
+            </div>
+          )}
           <div className="jobs-grid">
             {jobs.map(job => <JobCard key={job.id} job={job} onClick={() => navigate(`/jobs/${job.id}`)} />)}
           </div>
