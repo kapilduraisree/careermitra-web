@@ -86,13 +86,15 @@ export default function Login() {
           </p>
 
           <div className="demo-note">
-            <p style={{marginBottom:6}}><strong>🎓 Demo Student:</strong></p>
-            <p style={{cursor:'pointer', color:'#1565C0'}} onClick={() => setForm({email:'demo@careermitra.com', password:'Admin@1234'})}>
+            <p style={{marginBottom:6, fontWeight:700}}>🆕 New User? Register your own account:</p>
+            <p style={{fontSize:11, marginBottom:8}}>Click "Register here" → Create account with your email & password</p>
+            <hr style={{margin:'8px 0', border:'none', borderTop:'1px solid #fde68a'}}/>
+            <p style={{marginBottom:4}}><strong>🎓 Demo Student:</strong></p>
+            <p style={{cursor:'pointer', color:'#1565C0', fontSize:12}} onClick={() => setForm({email:'demo@careermitra.com', password:'Admin@1234'})}>
               📧 demo@careermitra.com / Admin@1234 <span style={{fontSize:10}}>(click to fill)</span>
             </p>
-            <hr style={{margin:'8px 0', border:'none', borderTop:'1px solid #fde68a'}}/>
-            <p style={{marginBottom:4}}><strong>🔑 Admin:</strong></p>
-            <p style={{cursor:'pointer', color:'#1565C0'}} onClick={() => setForm({email:'admin@careermitra.demo', password:'Admin@1234'})}>
+            <p style={{marginTop:4, marginBottom:4}}><strong>🔑 Admin:</strong></p>
+            <p style={{cursor:'pointer', color:'#1565C0', fontSize:12}} onClick={() => setForm({email:'admin@careermitra.demo', password:'Admin@1234'})}>
               📧 admin@careermitra.demo / Admin@1234 <span style={{fontSize:10}}>(click to fill)</span>
             </p>
           </div>

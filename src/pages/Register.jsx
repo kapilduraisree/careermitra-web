@@ -101,8 +101,8 @@ export default function Register() {
                   value={form.email} onChange={handle} required />
               </div>
               <div className="form-group">
-                <label className="label">Password * (min 8 chars)</label>
-                <input className="input" name="password" type="password" placeholder="Strong password"
+                <label className="label">Password * <span style={{fontWeight:400,color:'var(--text-muted)'}}>(min 8 chars, 1 uppercase, 1 number)</span></label>
+                <input className="input" name="password" type="password" placeholder="e.g. Kapil@2006"
                   value={form.password} onChange={handle} required minLength={8} />
               </div>
               <div className="form-group">
