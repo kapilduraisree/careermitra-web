@@ -20,3 +20,6 @@
 .subject-weight { font-size: 14px; font-weight: 700; color: var(--primary); }
 .mat-icon { width: 44px; height: 44px; border-radius: 10px; background: #EFF6FF; color: var(--primary); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 @media (max-width: 768px) { .exams-layout { grid-template-columns: 1fr; } .exam-list { position: static; } }
+
+.btn-green { background: var(--green); color: white; }
+.btn-green:hover:not(:disabled) { opacity:0.88; }
