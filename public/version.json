@@ -1,1 +1,5 @@
-﻿{"version":"2.2.0","build":"2026-09-17","backend":"https://web-production-7e532.up.railway.app/api","status":"production"}
+﻿{
+    "status":  "all exams fixed",
+    "build":  "2026-09-18 01:42",
+    "version":  "2.3.0"
+}
