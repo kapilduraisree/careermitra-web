@@ -271,7 +271,7 @@ export default function Exams() {
             </div>
 
             <div className="tabs">
-              {[['overview','📋 Overview'],['materials','📖 Materials'],['pdf','📥 Downloads'],['videos','🎥 Videos'],['tests','📝 Mock Tests']].map(([v,l]) => (
+              {[['overview','📋 Overview'],['materials','📖 Materials'],['pyq','📜 PYQ'],['pdf','📥 Downloads'],['videos','🎥 Videos'],['tests','📝 Mock Tests']].map(([v,l]) => (
                 <button key={v} className={`tab ${tab===v?'active':''}`} onClick={() => setTab(v)}>{l}</button>
               ))}
             </div>
@@ -306,6 +306,11 @@ export default function Exams() {
                   </Card>
                 )}
               </div>
+            )}
+
+            {/* PYQ — Previous Year Questions */}
+            {tab === 'pyq' && (
+              <PYQTab examId={selected.id} examName={selected.name} />
             )}
 
             {/* Materials (from DB) */}
@@ -447,6 +452,136 @@ export default function Exams() {
           </>
         )}
       </div>
+    </div>
+  )
+}
+
+// ── PYQ Component ─────────────────────────────────────────────────────────────
+function PYQTab({ examId, examName }) {
+  const [questions, setQuestions] = React.useState([])
+  const [loading, setLoading] = React.useState(true)
+  const [filter, setFilter] = React.useState('All')
+  const [showAnswer, setShowAnswer] = React.useState({})
+  const [yearFilter, setYearFilter] = React.useState('All')
+
+  React.useEffect(() => {
+    setLoading(true)
+    api.get('/exams/questions/list', { params: { exam_id: examId, limit: 50 } })
+      .then(r => { setQuestions(r.data.data || []); setLoading(false) })
+      .catch(() => setLoading(false))
+  }, [examId])
+
+  const topics = ['All', ...new Set(questions.map(q => q.topic).filter(Boolean))]
+  const years  = ['All', ...new Set(questions.map(q => q.year).filter(Boolean)).values()].sort((a,b) => b-a)
+
+  const filtered = questions.filter(q => {
+    const topicOk = filter === 'All' || q.topic === filter
+    const yearOk  = yearFilter === 'All' || String(q.year) === String(yearFilter)
+    return topicOk && yearOk
+  })
+
+  const toggleAnswer = (id) => setShowAnswer(prev => ({ ...prev, [id]: !prev[id] }))
+
+  if (loading) return <div style={{display:'flex',justifyContent:'center',padding:40}}><Spinner size={28}/></div>
+
+  if (questions.length === 0) return (
+    <EmptyState icon="📜" title="No PYQ available yet"
+      subtitle="Previous Year Questions will be added soon for this exam" />
+  )
+
+  return (
+    <div>
+      <div className="alert alert-info" style={{marginBottom:16}}>
+        📜 <strong>{questions.length} Previous Year Questions</strong> for {examName}
+      </div>
+
+      {/* Filters */}
+      <div style={{marginBottom:16}}>
+        <p style={{fontSize:12,fontWeight:700,color:'var(--text-muted)',marginBottom:6}}>TOPIC</p>
+        <div className="chip-row" style={{marginBottom:10}}>
+          {topics.map(t => (
+            <button key={t} className={`chip ${filter===t?'active':''}`}
+              style={{fontSize:11}} onClick={() => setFilter(t)}>{t}</button>
+          ))}
+        </div>
+        <p style={{fontSize:12,fontWeight:700,color:'var(--text-muted)',marginBottom:6}}>YEAR</p>
+        <div className="chip-row">
+          {years.map(y => (
+            <button key={y} className={`chip ${yearFilter===String(y)?'active':''}`}
+              style={{fontSize:11}} onClick={() => setYearFilter(String(y))}>{y}</button>
+          ))}
+        </div>
+      </div>
+
+      <p style={{fontSize:13,color:'var(--text-muted)',marginBottom:12}}>
+        Showing {filtered.length} of {questions.length} questions
+      </p>
+
+      {/* Questions list */}
+      {filtered.map((q, i) => (
+        <Card key={q.id} style={{marginBottom:12}}>
+          <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:10}}>
+            <div style={{display:'flex',gap:8,flexWrap:'wrap'}}>
+              {q.topic && <span className="badge badge-blue" style={{fontSize:11}}>{q.topic}</span>}
+              {q.year  && <span className="badge badge-gray" style={{fontSize:11}}>PYQ {q.year}</span>}
+              {q.difficulty && (
+                <span className="badge" style={{fontSize:11,
+                  background: q.difficulty==='easy'?'#F0FDF4':q.difficulty==='medium'?'#FFF7ED':'#FFF5F5',
+                  color: q.difficulty==='easy'?'var(--green)':q.difficulty==='medium'?'var(--secondary)':'var(--red)'}}>
+                  {q.difficulty}
+                </span>
+              )}
+            </div>
+            <span style={{fontSize:12,color:'var(--text-muted)',fontWeight:600}}>Q{i+1}</span>
+          </div>
+
+          <p style={{fontWeight:600,fontSize:14,lineHeight:1.6,marginBottom:14}}>
+            {q.question_text?.replace('[DEMO] ','')}
+          </p>
+
+          {/* Options */}
+          <div style={{display:'flex',flexDirection:'column',gap:8,marginBottom:12}}>
+            {[['A',q.option_a],['B',q.option_b],['C',q.option_c],['D',q.option_d]].map(([opt,text]) => {
+              const isCorrect = showAnswer[q.id] && opt === q.correct_ans
+              const isWrong   = showAnswer[q.id] && opt !== q.correct_ans
+              return (
+                <div key={opt} style={{
+                  display:'flex',alignItems:'center',gap:10,padding:'10px 12px',
+                  borderRadius:8,border:'1.5px solid',
+                  borderColor: isCorrect ? 'var(--green)' : 'var(--border)',
+                  background: isCorrect ? '#F0FDF4' : 'var(--bg)',
+                }}>
+                  <span style={{
+                    width:26,height:26,borderRadius:'50%',display:'flex',alignItems:'center',
+                    justifyContent:'center',fontWeight:700,fontSize:12,flexShrink:0,
+                    background: isCorrect ? 'var(--green)' : 'var(--border)',
+                    color: isCorrect ? 'white' : 'var(--text)',
+                  }}>{opt}</span>
+                  <span style={{fontSize:13,color: isCorrect ? 'var(--green)' : 'var(--text)'}}>{text}</span>
+                  {isCorrect && <span style={{marginLeft:'auto',fontSize:16}}>✅</span>}
+                </div>
+              )
+            })}
+          </div>
+
+          <button
+            className="btn btn-secondary btn-sm"
+            onClick={() => toggleAnswer(q.id)}
+            style={{marginRight:8}}
+          >
+            {showAnswer[q.id] ? '🙈 Hide Answer' : '👁️ Show Answer'}
+          </button>
+
+          {showAnswer[q.id] && q.explanation && (
+            <div style={{
+              marginTop:10,padding:'10px 14px',background:'#EFF6FF',
+              borderRadius:8,fontSize:13,color:'var(--primary)',lineHeight:1.7,
+            }}>
+              💡 <strong>Explanation:</strong> {q.explanation}
+            </div>
+          )}
+        </Card>
+      ))}
     </div>
   )
 }
