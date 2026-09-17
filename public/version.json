@@ -1,5 +1,1 @@
-﻿{
-    "features":  "All 20 features + Live Jobs + Dark Mode",
-    "build":  "2026-09-17 11:50",
-    "version":  "2.1.0"
-}
+﻿{"version":"2.2.0","build":"2026-09-17","backend":"https://web-production-7e532.up.railway.app/api","status":"production"}
