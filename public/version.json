@@ -1,1 +1,5 @@
-{"version": "2.0.0", "features": "All 20 features + Live Jobs", "updated": "2026-09-15"}
+﻿{
+    "features":  "All 20 features + Live Jobs + Dark Mode",
+    "build":  "2026-09-17 11:50",
+    "version":  "2.1.0"
+}
