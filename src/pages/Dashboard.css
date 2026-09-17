@@ -31,7 +31,16 @@
 .feature-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
+  gap: 10px;
+}
+@media (max-width: 767px) {
+  .feature-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  .feature-tile { padding: 12px 8px !important; }
+  .tile-emoji   { font-size: 22px !important; }
+  .tile-label   { font-size: 10px !important; }
 }
 .feature-tile {
   background: white;
