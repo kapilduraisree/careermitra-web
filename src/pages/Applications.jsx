@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react'
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Trash2, ExternalLink, RefreshCw } from 'lucide-react'
