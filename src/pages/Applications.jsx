@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Trash2, ExternalLink } from 'lucide-react'
+import { Trash2, ExternalLink, RefreshCw } from 'lucide-react'
 import api from '../api'
 import { Card, Spinner, EmptyState, Badge } from '../components/Card'
 import toast from 'react-hot-toast'
@@ -31,15 +32,30 @@ export default function Applications() {
   useEffect(() => { load() }, [])
 
   const updateStatus = async (appId, newStatus) => {
-    await api.put(`/applications/${appId}`, { status: newStatus })
-    setApps(apps.map(a => a.id === appId ? { ...a, status: newStatus } : a))
-    toast.success(`Status updated to "${newStatus}"`)
+    try {
+      await api.put(`/applications/${appId}`, { status: newStatus })
+      // Update local state
+      setApps(prev => prev.map(a => a.id === appId ? { ...a, status: newStatus } : a))
+      // Refresh summary counts
+      const summRes = await api.get('/applications/summary')
+      if (summRes.data?.data) setSummary(summRes.data.data)
+      toast.success(`✅ Status updated to "${newStatus}"`)
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Update failed')
+    }
   }
 
   const deleteApp = async (appId) => {
-    await api.delete(`/applications/${appId}`)
-    setApps(apps.filter(a => a.id !== appId))
-    toast.success('Removed from tracker')
+    try {
+      await api.delete(`/applications/${appId}`)
+      setApps(prev => prev.filter(a => a.id !== appId))
+      // Refresh summary
+      const summRes = await api.get('/applications/summary')
+      if (summRes.data?.data) setSummary(summRes.data.data)
+      toast.success('Removed from tracker')
+    } catch (err) {
+      toast.error('Failed to remove')
+    }
   }
 
   return (
